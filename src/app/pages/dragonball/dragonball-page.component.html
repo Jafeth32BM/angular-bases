@@ -2,22 +2,55 @@
 <hr>
 
 <section class="row">
+  <!-- Seccion del formulario -->
   <div class="col-12 col-sm-6">
-    <h3>Agregar:</h3>
-    <input type="text" class="form-control" placeholder="Nombre">
-    <input type="number" class="form-control mt-2" placeholder="Poder">
 
-    <button class="mt-2 btn btn-primary">Agregar</button>
-  </div>
+    <h3>Agregar: {{name()}}</h3>
+    <input type="text" class="form-control mt-4" placeholder="Nombre" [value]="name()"
+      (input)="name.set( txtName.value)" #txtName>
+    <input type="text" class="form-control mt-2" placeholder="Especie" [value]="type()"
+      (input)="type.set( txtType.value)" #txtType>
+    <!-- (change)="name.set( txtName.value)" =En lugar del (input), actualiza al dar tab=-->
+    <input type="number" class="form-control mt-2" placeholder="1000" [value]="power()"
+      (input)="power.set( numPower.valueAsNumber)" #numPower>
 
+
+    <button (click)="addCharacter()" class="mt-2 btn btn-primary">Agregar</button>
+  </div> <!-- Fin Formularo agregar -->
   <div class="col-12 col-sm-6">
-    <h3>Lista de personajes</h3>
-    <ol>
-      <li>Goku</li>
-      <li>Vegeta</li>
-      <li>Piccolo</li>
-      <li>Gohan</li>
-      <li>Trunks</li>
-    </ol>
-  </div>
+    <h3>Lista de personajes mayores a 5000</h3>
+
+    <ul>
+      @for (character of characters(); track character.id; let idx = $index) {
+      <!-- Condicion para listar solo a los personajes mayor a 5Kpower -->
+      @if (character.power >= 5000) {
+      <li>
+        <span>{{idx+1}} - {{character.name}}</span>
+        -
+        <span>({{character.type}})</span>
+        -
+        <strong [class.text-danger]="character.power > 5000"
+          [class.text-primary]="character.power < 5000">{{character.power}}</strong>
+
+      </li>
+      }
+      @else if (character.power <= 5000) { <li>
+        <span>{{idx+1}} - {{character.name}}</span>
+        -
+        <span>({{character.type}})</span>
+        -
+        <strong [class.text-danger]="character.power > 5000"
+          [class.text-primary]="character.power < 5000">{{character.power}}</strong>
+
+        </li>
+        }
+        @else {
+        <li>
+          <span>Nada que mostrar</span>
+        </li>
+        }
+        }
+    </ul>
+  </div> <!-- Fin lista personajes  mayor a 5000-->
+
 </section>

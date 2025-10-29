@@ -1,0 +1,11 @@
+<h3>Agregar: {{name()}}</h3>
+<input type="text" class="form-control mt-4" placeholder="Nombre" [value]="name()" (input)="name.set( txtName.value)"
+  #txtName>
+<input type="text" class="form-control mt-2" placeholder="Especie" [value]="type()" (input)="type.set( txtType.value)"
+  #txtType>
+<!-- (change)="name.set( txtName.value)" =En lugar del (input), actualiza al dar tab=-->
+<input type="number" class="form-control mt-2" placeholder="1000" [value]="power()"
+  (input)="power.set( numPower.valueAsNumber)" #numPower>
+
+
+<button (click)="addCharacter()" class="mt-2 btn btn-primary">Agregar</button>

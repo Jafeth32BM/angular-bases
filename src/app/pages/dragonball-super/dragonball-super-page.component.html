@@ -1,0 +1,24 @@
+<h1>Dragonball Super Page</h1>
+<hr>
+
+<section class="row">
+  <!-- Seccion del formulario -->
+  <div class="col-12 col-sm-6">
+    <dragonball-character-add
+    (newCharacter)="dbService.addCharacter($event)"
+    [characters]="dbService.characters()"
+    />
+
+    <!--
+    (newCharacter)="$event"  =====Es para recibir datos
+    [characters]="characters()" es para mandar datos
+    -->
+
+  </div> <!-- Fin Formularo agregar -->
+  <div class="col-12 col-sm-6">
+    <dragonball-character-list
+    listName="Listado de Personajes"
+    [characters]="dbService.characters()"/>
+  </div> <!-- Fin lista personajes  mayor a 5000-->
+
+</section>

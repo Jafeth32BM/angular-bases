@@ -1,28 +1,21 @@
-import { Component, signal } from '@angular/core';
+import { Component, input, output, signal } from '@angular/core';
+import { Character } from '../../../interfaces/character.interface';
 
-interface Character {
-  id: number;
-  name: string;
-  power: number;
-  type: string;
-  img?: string;
-}
 @Component({
-  selector: 'app-dragonball',
+  selector: 'dragonball-character-add',
   imports: [],
-  templateUrl: './dragonball-page.component.html',
-  styleUrl: './dragonball-page.component.css'
+  templateUrl: './character-add.html',
 })
-export class DragonballPageComponent {
+export class CharacterAddComponent {
   name = signal('');
   power = signal(0);
   type = signal('');
 
-  public characters = signal<Character[]>([
-    { id: 1, name: 'Goku', power: 9001, img: 'assets/pics/goku.png', type: 'Saiyan' },
+  newCharacter = output<Character>();
 
-  ]);
-  addCharacter() {
+  characters = input.required<Character[]>()
+
+ addCharacter() {
     if (!this.name() || !this.type() || this.power() <= 0) { return; }
     const imagen = this.formatName(this.name()); //formato para la imagen del personaje
 
@@ -33,8 +26,8 @@ export class DragonballPageComponent {
       type: this.type(),
       img: `assets/pics/${imagen}.png`
     };
-
-    this.characters.update((list) => [...list, newCharacter]);
+    this.newCharacter.emit(newCharacter);
+    // this.characters.update((list) => [...list, newCharacter]);
     this.resetFields();
 
   }
@@ -48,6 +41,4 @@ export class DragonballPageComponent {
     this.power.set(0);
 
   }
-
-
 }
